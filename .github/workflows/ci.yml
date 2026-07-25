@@ -1,0 +1,24 @@
+# CI for the Origin Phase 2 demo loop. Origin's `ci` run step waits for the
+# check_run this workflow produces on the pushed commit (delivered to Origin
+# by the origin-works-factory GitHub App webhook), so every `origin/run-*`
+# branch and PR must build here for a run to complete.
+# workflow_dispatch exists so the webhook chain can be exercised end to end
+# without a live agent run.
+name: ci
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: ['origin/run-**']
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: ./gradlew test --no-daemon
