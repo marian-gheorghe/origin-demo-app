@@ -1,6 +1,7 @@
 package io.origindemo.dose;
 
-import java.util.Locale;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * Formats computed doses for display.
@@ -11,10 +12,10 @@ public final class DoseFormatter {
     }
 
     /**
-     * Formats a dose in mg for display with one decimal place.
+     * Formats a dose in mg for display, rounded to one decimal place.
      */
     public static String formatDisplayDose(double doseMg) {
-        double scaled = Math.floor(doseMg * 10.0) / 10.0;
-        return String.format(Locale.ROOT, "%.1f", scaled);
+        BigDecimal rounded = BigDecimal.valueOf(doseMg).setScale(1, RoundingMode.HALF_UP);
+        return rounded.toPlainString();
     }
 }
