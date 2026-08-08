@@ -11,10 +11,13 @@ public final class DoseFormatter {
     }
 
     /**
-     * Formats a dose in mg for display with one decimal place.
+     * Formats a dose in mg for display, rounded to one decimal place.
+     *
+     * <p>Rounding uses the standard half-up algorithm (Java's {@code
+     * Formatter} default for {@code %f}), so e.g. 12.36 displays as 12.4
+     * rather than being truncated to 12.3.
      */
     public static String formatDisplayDose(double doseMg) {
-        double scaled = Math.floor(doseMg * 10.0) / 10.0;
-        return String.format(Locale.ROOT, "%.1f", scaled);
+        return String.format(Locale.ROOT, "%.1f", doseMg);
     }
 }
