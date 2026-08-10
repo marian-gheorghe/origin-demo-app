@@ -14,7 +14,8 @@ public final class DoseFormatter {
      * Formats a dose in mg for display with one decimal place.
      */
     public static String formatDisplayDose(double doseMg) {
-        double scaled = Math.floor(doseMg * 10.0) / 10.0;
-        return String.format(Locale.ROOT, "%.1f", scaled);
+        java.math.BigDecimal rounded = java.math.BigDecimal.valueOf(doseMg)
+                .setScale(1, java.math.RoundingMode.HALF_UP);
+        return String.format(Locale.ROOT, "%.1f", rounded.doubleValue());
     }
 }

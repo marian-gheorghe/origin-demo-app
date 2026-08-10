@@ -12,6 +12,9 @@ public class DoseService {
      * as a server fault such as a {@link NullPointerException}.
      */
     public double computeDoseMg(DoseRequest requestBody) {
+        if (requestBody == null) {
+            throw new ValidationException("request body must not be null");
+        }
         if (requestBody.patientWeightKg() == null) {
             throw new ValidationException("patientWeightKg must not be null");
         }
