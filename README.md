@@ -1,5 +1,14 @@
 # origin-demo-app
 
+## Overview
+
+This is a small demo application implementing a dose-calculation service. It
+centers on `DoseService`, which validates a request body and computes a
+patient's dose in milligrams, and `DoseFormatter`, which rounds and renders
+that computed dose for display. The app has no real-world clinical use;
+it exists purely as a minimal, self-contained target used to exercise
+Origin's real-agent run pipeline end to end.
+
 **PRIVATE demo target repo for the Origin platform (Phase 2).** This is the
 repository a real coding agent fixes *through Origin* in the Phase 2 demo. It
 is intentionally tiny: a plain-Java Gradle dose service with **two seeded
