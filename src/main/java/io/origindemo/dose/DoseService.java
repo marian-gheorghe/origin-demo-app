@@ -29,6 +29,26 @@ public class DoseService {
         if (mgPerKg <= 0) {
             throw new ValidationException("mgPerKg must be positive");
         }
-        return weightKg * mgPerKg;
+        double doseMg = weightKg * mgPerKg;
+        validateDoseRange(doseMg);
+        return doseMg;
+    }
+
+    /**
+     * Validates that a computed dose is within the safe, displayable range
+     * before it is handed to {@link DoseFormatter} for formatting.
+     *
+     * <p>This is a defense-in-depth check on the output of the dose
+     * computation, independent of the input-range checks above, so that a
+     * negative or excessively large dose can never reach formatting or
+     * display.
+     */
+    public static void validateDoseRange(double doseMg) {
+        if (doseMg < 0) {
+            throw new ValidationException("dose must not be negative");
+        }
+        if (doseMg > 1000) {
+            throw new ValidationException("dose must not exceed 1000");
+        }
     }
 }
